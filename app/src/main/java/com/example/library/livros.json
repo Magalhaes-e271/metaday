@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "imagem": "memorias_postumas_bras_cubas.jpg",
+    "titulo": "Memórias Póstumas de Brás Cubas",
+    "autor": "Machado de Assis",
+    "ano": 1881,
+    "genero": "Romance Realista",
+    "descricao": "Narrado por um defunto-autor, o livro ironiza a sociedade carioca do século XIX, expondo vaidades, hipocrisias e contradições humanas com humor e pessimismo.",
+    "disponivel": true
+  },
+  {
+    "id": 2,
+    "imagem": "dracula.jpg",
+    "titulo": "Drácula",
+    "autor": "Bram Stoker",
+    "ano": 1897,
+    "genero": "Terror Gótico",
+    "descricao": "O conde Drácula viaja da Transilvânia à Inglaterra para espalhar o vampirismo, enfrentando um grupo de pessoas lideradas por Van Helsing. Um clássico do horror e da literatura gótica.",
+    "disponivel": true
+  },
+  {
+    "id": 3,
+    "titulo": "A Relíquia",
+    "imagem": "a_reliquia",
+    "autor": "Eça de Queirós",
+    "ano": 1887,
+    "genero": "Sátira e Romance",
+    "descricao": "Teodorico Raposo viaja à Terra Santa em busca de uma relíquia sagrada, mas retorna com algo bem diferente, desencadeando uma crítica mordaz à hipocrisia religiosa e social.",
+    "disponivel": false
+  },
+  {
+    "id": 4,
+    "titulo": "Os Irmãos Karamázov",
+    "imagem": "irmaos_karamazov.jpg",
+    "autor": "Fiódor Dostoiévski",
+    "ano": 1880,
+    "genero": "Romance Filosófico",
+    "descricao": "Explora os conflitos morais e espirituais de uma família russa marcada por paixão, fé e crime. Uma das obras mais complexas e profundas da literatura mundial.",
+    "disponivel": true
+  },
+  {
+    "id": 5,
+    "titulo": "Jurassic Park",
+    "imagem": "dom_casmurro.png",
+    "autor": "Michael Crichton",
+    "ano": 1990,
+    "genero": "Ficção Científica",
+    "descricao": "Cientistas recriam dinossauros a partir de DNA e os exibem em um parque temático. Quando o sistema de segurança falha, a natureza retoma o controle. Um suspense tecnológico e biológico.",
+    "disponivel": true
+  },
+  {
+    "id": 6,
+    "titulo": "Dom Casmurro",
+    "imagem": "dom_casmurro.png",
+    "autor": "Machado de Assis",
+    "ano": 1899,
+    "genero": "Romance Psicológico",
+    "descricao": "Bentinho narra sua história de amor com Capitu, marcada por ciúmes e dúvida. A ambiguidade da narrativa tornou o livro um dos maiores enigmas da literatura brasileira.",
+    "disponivel": false
+  }
+]

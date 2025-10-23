@@ -1,0 +1,54 @@
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+    <ImageButton
+        android:id="@+id/ImgButtonId"
+        android:src="@drawable/voltar"
+        android:layout_width="10pt"
+        android:layout_height="10pt"
+        android:layout_marginTop="10pt"
+        android:scaleType="centerCrop"
+        android:adjustViewBounds="true"
+        android:background="@null"
+        />
+    <ImageView
+        android:layout_gravity="center_horizontal|center_vertical"
+        android:paddingTop="18pt"
+        android:id="@+id/imgDetalhe"
+        android:layout_width="180dp"
+        android:layout_height="260dp"
+        android:layout_marginBottom="16dp"
+        android:scaleType="centerCrop"
+        android:adjustViewBounds="true" />
+
+
+    <TextView
+        android:id="@+id/txtTituloDetalhe"
+
+        android:textSize="30sp"
+        android:textStyle="bold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    <TextView
+        android:paddingTop="20dp"
+        android:textSize="18sp"
+        android:id="@+id/txtDescricaoDetalhe"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    <TextView
+        android:paddingTop="7dp"
+        android:id="@+id/txtAutorDetalhe"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        />
+
+    <TextView
+        android:id="@+id/txtDisponivelDetalhe"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        />
+</LinearLayout>
