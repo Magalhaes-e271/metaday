@@ -1,9 +1,14 @@
-package com.example.library
+package com.example.library.activity
 
+import android.annotation.SuppressLint
 import android.os.Bundle
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.library.LivroAdapter
+import com.example.library.R
+import com.example.library.model.Usuario
 import com.google.gson.Gson
 
 class MainActivity : AppCompatActivity() {
@@ -22,10 +27,10 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
         val json = """
 [
   {"id":1,"img": "memorias_postumas_bras_cubas" ,"titulo":"Memórias Póstumas de Brás Cubas","autor":"Machado de Assis","ano":1881,"genero":"Romance Realista","descricao":"Narrado por um defunto-autor, ironiza a sociedade carioca do século XIX.","disponivel":true},
@@ -52,7 +57,22 @@ class MainActivity : AppCompatActivity() {
         // 4️⃣ Configura o RecyclerView
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = LivroAdapter(livros)
+
+        val textoEmail = findViewById<TextView>(R.id.edit_text_email)
+
+        // Recupera os dados enviados
+        val emailRecebido = intent.getStringExtra("email_usuario")
+        val senhaRecebida = intent.getStringExtra("senha_usuario")
+        var usuario = Usuario(
+            null.toString(),
+            email = emailRecebido.toString(),
+            senha = senhaRecebida.toString(),
+        )
+
+        textoEmail.text = "Bem-vindo, ${usuario.email}!"
+
     }
+
 }
 
 

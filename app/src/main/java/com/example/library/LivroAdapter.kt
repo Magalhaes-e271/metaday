@@ -9,6 +9,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.library.activity.DescricaoActivity
+import com.example.library.activity.MainActivity
 
 class LivroAdapter(private val livros: List<MainActivity.Item>) :
     RecyclerView.Adapter<LivroAdapter.LivroViewHolder>() {
