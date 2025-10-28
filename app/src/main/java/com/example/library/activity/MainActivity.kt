@@ -13,13 +13,11 @@ import com.example.library.databinding.ActivityMainBinding
 import com.example.library.model.Usuario
 import com.example.library.network.BookServiceKtor
 import com.example.library.network.KtorClient
-import com.example.library.remote.BookService
 import com.google.gson.Gson
 import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
-    private val bookService = BookService(KtorClient.client) // ✅ usa Ktor
 
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,8 +29,8 @@ class MainActivity : AppCompatActivity() {
         binding.recyclerView.layoutManager = LinearLayoutManager(this)
 
         binding.buttonAdd.setOnClickListener {
-            intent.putExtra("origem", "MainActivity")
-            startActivity(intent)
+            val intent2 = Intent(this, CadastrarLivroActivity::class.java)
+            startActivity(intent2)
         }
         // Carrega usuário logado
         val usuario = carregarUsuario()
@@ -64,7 +62,6 @@ class MainActivity : AppCompatActivity() {
         val usuarioJson = sharedPref.getString("usuario_json", null)
         return Gson().fromJson(usuarioJson, Usuario::class.java)
     }
-
     private fun carregarLivros() {
         binding.progressBar.visibility = View.VISIBLE
 

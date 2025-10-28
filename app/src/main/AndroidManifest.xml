@@ -17,6 +17,15 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".activity.AtualizarLivroActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.CadastrarLivroActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.CastroLivro"
+            android:exported="false" />
+        <activity
             android:name=".activity.BookInteracActivity"
             android:exported="false" />
         <activity

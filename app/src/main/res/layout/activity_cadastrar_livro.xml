@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="30dp"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <!-- Botão Voltar -->
+    <ImageButton
+        android:id="@+id/btnVoltarCadastro"
+        android:src="@drawable/voltar"
+        android:layout_width="15pt"
+        android:layout_height="15pt"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="10pt"
+        android:background="@null"
+        android:scaleType="centerCrop"
+        android:adjustViewBounds="true" />
+
+    <!-- Título da tela -->
+    <TextView
+        android:id="@+id/txtTituloTela"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_alignTop="@id/btnVoltarCadastro"
+        android:text="Cadastrar Livro"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:textColor="@color/black" />
+
+    <!-- ScrollView para rolar os campos -->
+    <ScrollView
+        android:id="@+id/scrollCadastro"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/txtTituloTela"
+        android:layout_marginTop="25dp">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="30dp">
+
+            <!-- Campo: Título -->
+            <EditText
+                android:id="@+id/editTitulo"
+                android:hint="Título"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp" />
+
+            <!-- Campo: Autor -->
+            <EditText
+                android:id="@+id/editAutor"
+                android:hint="Autor"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp" />
+
+            <!-- Campo: Descrição -->
+            <EditText
+                android:id="@+id/editDescricao"
+                android:hint="Descrição"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minLines="3"
+                android:gravity="top"
+                android:layout_marginBottom="12dp" />
+
+            <!-- Campo: Tipo -->
+            <EditText
+                android:id="@+id/editTipo"
+                android:hint="Tipo (ex: Romance, Técnico, Ficção...)"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp" />
+
+            <!-- Campo: Quantidade -->
+            <EditText
+                android:id="@+id/editQuantia"
+                android:hint="Quantidade"
+                android:inputType="number"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp" />
+
+            <!-- Campo: URL da Capa -->
+            <EditText
+                android:id="@+id/editImg"
+                android:hint="URL da capa (opcional)"
+                android:inputType="textUri"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp" />
+
+            <!-- Botão de cadastro -->
+            <Button
+                android:id="@+id/btnCadastrarLivro"
+                android:text="Cadastrar Livro"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:backgroundTint="@color/purple"
+                android:textColor="@android:color/white"
+                android:textStyle="bold"
+                android:padding="10dp" />
+
+            <!-- Barra de progresso -->
+            <ProgressBar
+                android:id="@+id/progressoCadastro"
+                android:visibility="gone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp" />
+
+        </LinearLayout>
+    </ScrollView>
+
+</RelativeLayout>

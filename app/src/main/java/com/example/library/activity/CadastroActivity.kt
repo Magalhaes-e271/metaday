@@ -44,7 +44,11 @@ class CadastroActivity : AppCompatActivity() {
             // mantém o cursor no final do texto
             binding.editTextSenha.setSelection(binding.editTextSenha.text?.length ?: 0)
         }
+        binding.ImgButtonVoltarId.setOnClickListener {
+            startActivity(Intent(this, LoginActivity::class.java))
+            finish()
 
+        }
 
         binding.ButtonLogon.setOnClickListener {
             val nome = binding.editTextNome.text.toString().trim()
@@ -74,7 +78,7 @@ class CadastroActivity : AppCompatActivity() {
                     val cadastroSucesso = userService.cadastrar(usuario)
 
                     if (cadastroSucesso != null) {
-                        // Salva apenas os dados seguros (não salvar senha!)
+
                         val usuarioSeguro = Usuario(
                             nome = cadastroSucesso.nome,
                             email = cadastroSucesso.email,

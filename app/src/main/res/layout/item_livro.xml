@@ -46,6 +46,17 @@
         app:layout_constraintStart_toStartOf="@id/txtTitulo"
         app:layout_constraintTop_toBottomOf="@id/txtTitulo"
         app:layout_constraintEnd_toEndOf="@id/txtTitulo" />
+    <TextView
+        android:id="@+id/txtTipo"
+        android:layout_width="0dp"
+        android:paddingLeft="18dp"
+        android:layout_height="wrap_content"
+        android:text="tipo"
+        android:textSize="14sp"
+        android:textColor="#444444"
+        app:layout_constraintStart_toStartOf="@id/txtAutor"
+        app:layout_constraintTop_toBottomOf="@id/txtAutor"
+        app:layout_constraintEnd_toEndOf="@id/txtAutor" />
 
     <!-- Status -->
     <TextView
@@ -55,7 +66,7 @@
         android:paddingLeft="18dp"
         android:textSize="12sp"
 
-        app:layout_constraintStart_toStartOf="@id/txtAutor"
-        app:layout_constraintTop_toBottomOf="@id/txtAutor" />
+        app:layout_constraintStart_toStartOf="@id/txtTipo"
+        app:layout_constraintTop_toBottomOf="@id/txtTipo" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

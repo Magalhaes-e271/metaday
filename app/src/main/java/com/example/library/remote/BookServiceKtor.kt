@@ -44,6 +44,8 @@ object BookServiceKtor {
     // ✅ Cadastrar novo livro
     suspend fun cadastrarLivro(book: Book): Book? = withContext(Dispatchers.IO) {
         try {
+            android.util.Log.d("DEBUG_LIVRO", "Enviando livro: $book")
+
             val response: HttpResponse = client.post("$BASE_URL/cadastrar") {
                 contentType(ContentType.Application.Json)
                 setBody(book)

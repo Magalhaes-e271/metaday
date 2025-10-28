@@ -5,7 +5,17 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     >
-
+    <ImageButton
+        android:id="@+id/ImgButtonVoltarId"
+        android:src="@drawable/voltar"
+        android:layout_width="15pt"
+        android:layout_height="15pt"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="10pt"
+        android:layout_marginLeft="10pt"
+        android:background="@null"
+        android:scaleType="centerCrop"
+        android:adjustViewBounds="true" />
     <ImageView
         android:id="@+id/imgbooklog"
         android:src="@drawable/criar_conta"

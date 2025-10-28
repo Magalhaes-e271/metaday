@@ -19,6 +19,7 @@ class LivroAdapter(private val livros: List<Book>) :
         val img: ImageView = view.findViewById(R.id.ImgView)
         val titulo: TextView = view.findViewById(R.id.txtTitulo)
         val autor: TextView = view.findViewById(R.id.txtAutor)
+        val tipo: TextView = view.findViewById(R.id.txtTipo)
         val status: TextView = view.findViewById(R.id.txtDisponivel)
     }
 
@@ -37,7 +38,7 @@ class LivroAdapter(private val livros: List<Book>) :
         }
         holder.titulo.text = livro.titulo
         holder.autor.text = livro.autor
-      
+        holder.tipo.text = livro.type
         holder.status.setTextColor(
             if (livro.quantia!! >= 1 )
                 Color.parseColor("#007700")
@@ -69,12 +70,7 @@ class LivroAdapter(private val livros: List<Book>) :
             val intent = Intent(context, DescricaoActivity::class.java)
 
             // envia dados do livro via Intent
-            intent.putExtra("id", livro.id)
-            intent.putExtra("titulo", livro.titulo)
-            intent.putExtra("autor", livro.autor)
-            intent.putExtra("descricao", livro.descricao)
-            intent.putExtra("img", livro.img)
-            intent.putExtra("quantia", livro.quantia)
+            intent.putExtra("livro", livro)
 
             context.startActivity(intent)
         }
