@@ -1,7 +1,7 @@
 package com.example.library
 
-import android.graphics.Color
 import android.content.Intent
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,11 +10,11 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.library.activity.DescricaoActivity
-import com.example.library.activity.MainActivity
+import com.example.library.model.Book
 
-class LivroAdapter(private val livros: List<MainActivity.Item>) :
+class LivroAdapter(private val livros: List<Book>) :
     RecyclerView.Adapter<LivroAdapter.LivroViewHolder>() {
-
+  var disponivel = false
     class LivroViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val img: ImageView = view.findViewById(R.id.ImgView)
         val titulo: TextView = view.findViewById(R.id.txtTitulo)
@@ -30,21 +30,31 @@ class LivroAdapter(private val livros: List<MainActivity.Item>) :
 
     override fun onBindViewHolder(holder: LivroViewHolder, position: Int) {
         val livro = livros[position]
-
+        if(livro.quantia!! >= 1 ){
+            holder.status.text = "Disponível: ${livro.quantia}"
+        }else{
+            holder.status.text = "Indisponível"
+        }
         holder.titulo.text = livro.titulo
         holder.autor.text = livro.autor
-        holder.status.text = if (livro.disponivel) "Disponível" else "Indisponível"
+      
         holder.status.setTextColor(
-            if (livro.disponivel) Color.parseColor("#007700") else Color.parseColor("#FF0000")
+            if (livro.quantia!! >= 1 )
+                Color.parseColor("#007700")
+            else
+                Color.parseColor("#FF0000")
         )
-        // Carrega imagem
-        if (livro.img.startsWith("http")) {
+
+        // 🖼️ Carrega imagem
+        if (livro.img?.startsWith("http") == true) {
             Glide.with(holder.itemView.context)
                 .load(livro.img)
+                .placeholder(android.R.drawable.ic_menu_gallery)
+                .error(android.R.drawable.ic_menu_report_image)
                 .into(holder.img)
         } else {
             val resId = holder.itemView.context.resources.getIdentifier(
-                livro.img, "drawable", holder.itemView.context.packageName
+                livro.img ?: "", "drawable", holder.itemView.context.packageName
             )
             if (resId != 0) {
                 holder.img.setImageResource(resId)
@@ -53,17 +63,18 @@ class LivroAdapter(private val livros: List<MainActivity.Item>) :
             }
         }
 
-        // 🟢 Clique no item inteiro
+        // 🟢 Clique → abre a tela de descrição
         holder.itemView.setOnClickListener {
             val context = holder.itemView.context
             val intent = Intent(context, DescricaoActivity::class.java)
 
-            // envia dados do livro pra próxima tela
+            // envia dados do livro via Intent
+            intent.putExtra("id", livro.id)
             intent.putExtra("titulo", livro.titulo)
             intent.putExtra("autor", livro.autor)
-            intent.putExtra("img", livro.img)
             intent.putExtra("descricao", livro.descricao)
-            intent.putExtra("disponivel", livro.disponivel)
+            intent.putExtra("img", livro.img)
+            intent.putExtra("quantia", livro.quantia)
 
             context.startActivity(intent)
         }

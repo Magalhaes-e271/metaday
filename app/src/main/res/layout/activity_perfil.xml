@@ -1,0 +1,68 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    tools:context=".activity.PerfilActivity">
+
+    <!-- Botão Voltar -->
+    <ImageButton
+        android:id="@+id/ImgButtonVoltarMId"
+        android:src="@drawable/voltar"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="20dp"
+        android:layout_alignParentStart="true"
+        android:background="@null"
+        android:scaleType="centerCrop"
+        android:adjustViewBounds="true"
+        android:layout_marginLeft="15sp"
+        />
+
+    <!-- Imagem de Perfil -->
+    <ImageView
+        android:id="@+id/imgPerfil"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/ImgButtonVoltarMId"
+        android:layout_marginTop="20dp"
+        android:src="@drawable/baseline_account_circle_24" />
+
+    <!-- Nome do Usuário -->
+    <TextView
+        android:id="@+id/txtNomePerfil"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/imgPerfil"
+        android:layout_marginTop="12dp"
+        android:text="Carregando..."
+        android:textSize="18sp"
+        android:gravity="center" />
+
+    <!-- Email -->
+    <TextView
+        android:id="@+id/txtEmailPerfil"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/txtNomePerfil"
+        android:layout_marginTop="12dp"
+        android:text="Carregando..."
+        android:textSize="18sp"
+        android:gravity="center" />
+
+    <!-- Botão Deslogar -->
+    <Button
+        android:id="@+id/buttonDeslogar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/txtEmailPerfil"
+        android:layout_marginTop="32dp"
+        android:layout_marginHorizontal="16dp"
+        android:backgroundTint="@color/red"
+        android:text="Deslogar"
+        android:textColor="@android:color/white" />
+
+</RelativeLayout>

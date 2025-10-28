@@ -5,46 +5,34 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     >
-    <ImageButton
-        android:id="@+id/ImgButtonVoltarId"
-        android:src="@drawable/voltar"
-        android:layout_width="15pt"
-        android:layout_height="15pt"
-        android:layout_marginTop="20pt"
-        android:layout_alignLeft="@+id/edit_text_email"
-        android:scaleType="centerCrop"
-        android:adjustViewBounds="true"
-        android:background="@null"
-        />
-    <ImageButton
-        android:id="@+id/ButtonVisitante"
-        android:layout_width="20pt"
-        android:layout_height="20pt"
-        android:layout_alignParentRight="true"
-        android:layout_marginTop="20pt"
-        android:src="@drawable/anonimo"
-        android:layout_marginRight="18dp"
-        android:scaleType="centerCrop"
-        android:background="@null"
-        />
 
     <ImageView
         android:id="@+id/imgbooklog"
-        android:src="@drawable/baseline_menu_book_24"
+        android:src="@drawable/criar_conta"
         android:layout_width="128dp"
         android:layout_height="128dp"
-        android:layout_marginTop="128dp"
+        android:layout_marginTop="118dp"
         android:layout_centerHorizontal="true"
         />
-
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/imgbooklog"
+        android:id="@+id/edit_text_Nome"
+        android:hint="Digite seu Nome"
+        android:paddingTop="26dp"
+        android:layout_margin="16dp"
+        android:textSize="20sp"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/edit_text_Nome"
         android:id="@+id/edit_text_email"
         android:hint="Digite seu email"
         android:layout_margin="16dp"
         android:textSize="20sp"/>
+
     <LinearLayout
         android:id="@+id/LLoc"
         android:layout_width="match_parent"
@@ -52,15 +40,14 @@
         android:layout_below="@+id/edit_text_email"
         android:layout_centerHorizontal="true"
         android:orientation="horizontal">
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/edit_text_email"
-        android:id="@+id/edit_text_senha"
-        android:hint="Digite sua senha"
-        android:layout_margin="16dp"
-        android:textSize="20sp"
-        android:inputType="textPassword"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/edit_text_senha"
+            android:hint="Digite sua senha"
+            android:layout_margin="16dp"
+            android:textSize="20sp"
+            android:inputType="textPassword"/>
         <ImageButton
             android:id="@+id/ButtonOlhar"
             android:layout_width="15pt"
@@ -75,24 +62,22 @@
             />
 
     </LinearLayout>
+
     <Button
-        android:id="@+id/ButtonLogin"
+        android:id="@+id/ButtonLogon"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/LLoc"
         android:textSize="16dp"
-        android:text="Entrar"
+        android:text="Criar conta"
         android:layout_margin="16dp"
         android:backgroundTint="@color/yellow"
-        android:textColor="@color/black"
-
-       />
-
+        android:textColor="@color/black"/>
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/ButtonLogin"
+        android:layout_below="@+id/ButtonLogon"
         android:layout_centerHorizontal="true"
         android:orientation="horizontal">
 
@@ -100,13 +85,13 @@
             android:id="@+id/txtNtc"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Não tem uma conta?" />
+            android:text="Já tem uma conta?" />
 
         <TextView
             android:id="@+id/textLinkCadastro"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Cadastre-se"
+            android:text="login"
             android:textColor="@color/blue"
             android:textStyle="bold"
             android:clickable="true"

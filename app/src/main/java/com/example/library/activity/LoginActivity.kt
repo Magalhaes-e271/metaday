@@ -1,95 +1,164 @@
 package com.example.library.activity
 
-import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
+import android.text.InputType
+import android.util.Patterns
 import android.view.View
-import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.example.library.R
+import com.example.library.databinding.ActivityLoginBinding
 import com.example.library.model.LoginRequest
-import com.example.library.model.LoginResponse
-import com.example.library.databinding.ActivityLoginBinding // Gerado pelo View Binding
-import com.example.library.remote.UserService // Seu serviço Ktor
+import com.example.library.model.Usuario
+import com.example.library.remote.UserService
+import com.google.gson.Gson
 import kotlinx.coroutines.launch
 
 class LoginActivity : AppCompatActivity() {
 
-    // 1. Variável para o View Binding
     private lateinit var binding: ActivityLoginBinding
-
-    // 2. Instância do Serviço de Rede Ktor (ou Retrofit)
     private val userService = UserService()
+    private var direcaoResgatada: String? = null
+    private var origemResgatada: String? = null
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // 3. Inicializa o View Binding
+        val sharedPref = getSharedPreferences("UserPrefs", MODE_PRIVATE)
+        val usuarioJson = sharedPref.getString("usuario_json", null)
+        val usuario = Gson().fromJson(usuarioJson, Usuario::class.java)
+
+        if(usuario != null){
+            startActivity(Intent(this@LoginActivity, MainActivity::class.java))
+        }
+
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val buttonLogin = findViewById<Button>(R.id.ButtonLogin)
-        // 4. Configura o Listener do Botão
-        buttonLogin.setOnClickListener {
-            performLogin()
-        }
-    }
+        direcaoResgatada = intent.getStringExtra("direcao")
+        origemResgatada = intent.getStringExtra("origem")
+        // Se nulo ou vazio, volta para MainActivity
+        if (direcaoResgatada.isNullOrBlank()) {
+            binding.ImgButtonVoltarId.visibility = View.GONE
 
-    private fun performLogin() {
-        val email = binding.editTextEmail.text.toString()
-        val senha = binding.editTextSenha.text.toString()
-
-        // 5. Validação básica (campos vazios)
-        if (email.isEmpty() || senha.isEmpty()) {
-            Toast.makeText(this, "Preencha o email e a senha.", Toast.LENGTH_SHORT).show()
-            return
+            direcaoResgatada = "MainActivity"
+        }else{
+            binding.ButtonVisitante.visibility = View.GONE
         }
 
-        // 6. Mostra o indicador de progresso e desabilita o botão
-        setLoadingState(true)
+        binding.ButtonLogin.setOnClickListener {
+            val email = binding.editTextEmail.text.toString().trim()
+            val senha = binding.editTextSenha.text.toString().trim()
 
-        // 7. Chama o Ktor (ou Retrofit) usando Coroutines
-        lifecycleScope.launch {
-            try {
-                // Monta o objeto de requisição
-                val request = LoginRequest(email, senha)
 
-                // ⚠️ Se você está usando Retrofit, a chamada seria diferente aqui!
-                val response: LoginResponse = userService.login(request) // Método do Ktor
+            if (email.isEmpty() || senha.isEmpty()) {
+                Toast.makeText(this, "Preencha todos os campos", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
 
-                // SUCESSO!
-                handleSuccessfulLogin(response)
+            if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+                Toast.makeText(this, "E-mail inválido!", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
 
-            } catch (e: Exception) {
-                // ERRO (Rede, 401 Unauthorized, ou JSON)
-                Log.e("LOGIN_API", "Erro no login: ${e.message}", e)
-                Toast.makeText(this@LoginActivity, "Login falhou. Credenciais inválidas.", Toast.LENGTH_LONG).show()
-            } finally {
-                // 8. Oculta o indicador de progresso
-                setLoadingState(false)
+            lifecycleScope.launch {
+                try {
+                    val loginRequest = LoginRequest(email, senha)
+                    val usuario = userService.login(loginRequest)
+
+                    // Protege contra retorno nulo
+                    if (usuario == null) {
+                        Toast.makeText(
+                            this@LoginActivity,
+                            "Usuário inválido ou erro no servidor.",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        return@launch
+                    }
+
+                    // Salva usuário
+                    val sharedPref = getSharedPreferences("UserPrefs", MODE_PRIVATE)
+                    with(sharedPref.edit()) {
+                        putString("usuario_json", Gson().toJson(usuario))
+                        apply()
+                    }
+
+                    Toast.makeText(
+                        this@LoginActivity,
+                        "Bem-vindo, ${usuario.nome ?: "Usuário"}!",
+                        Toast.LENGTH_SHORT
+                    ).show()
+
+                    // Tenta abrir a Activity de destino
+                    val classeDestino = try {
+                        // 👇 Verifica se existe a classe antes de tentar abrir
+                        Class.forName("com.example.library.activity.$direcaoResgatada")
+                    } catch (e: ClassNotFoundException) {
+                        e.printStackTrace()
+                        MainActivity::class.java // fallback seguro
+                    }
+
+                    val intent = Intent(this@LoginActivity, classeDestino)
+                    startActivity(intent)
+                    finish()
+
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                    Toast.makeText(
+                        this@LoginActivity,
+                        "Erro ao efetuar login: ${e.message}",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
             }
         }
-    }
 
-    private fun handleSuccessfulLogin(response: LoginResponse) {
-        // SALVAR O TOKEN: Você deve salvar o response.accessToken em SharedPreferences
-        // (Isso é crucial para manter o usuário logado e autenticar futuras chamadas)
-        Log.d("LOGIN_SUCCESS", "Token recebido: ${response.accessToken}")
+        binding.ImgButtonVoltarId.setOnClickListener{
+            val classeOrigem= try {
+                // 👇 Verifica se existe a classe antes de tentar abrir
+                Class.forName("com.example.library.activity.$origemResgatada")
+            } catch (e: ClassNotFoundException) {
+                e.printStackTrace()
+                MainActivity::class.java // fallback seguro
+            }
+            startActivity(Intent(this@LoginActivity, classeOrigem))
 
-        // REDIRECIONAR PARA A TELA PRINCIPAL (ex: HomeActivity)
-        val intent = Intent(this, MainActivity::class.java)
-        startActivity(intent)
-        finish() // Finaliza a LoginActivity para que o usuário não volte para ela
-    }
+        }
+        var senhaVisivel = false
 
-    // Função auxiliar para gerenciar o estado de carregamento
-    private fun setLoadingState(isLoading: Boolean) {
-        binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
-        binding.buttonLogin.isEnabled = !isLoading
-        binding.editTextEmail.isEnabled = !isLoading
-        binding.editTextSenha.isEnabled = !isLoading
+        binding.ButtonOlhar.setOnClickListener {
+            senhaVisivel = !senhaVisivel
+
+            if (senhaVisivel) {
+                binding.ButtonOlhar.setImageResource(R.drawable.olho)
+                // mostra
+                binding.editTextSenha.inputType =
+                    InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
+            } else {
+                binding.ButtonOlhar.setImageResource(R.drawable.olho_fechado)
+                // esconde
+                binding.editTextSenha.inputType =
+                    InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
+            }
+
+            // mantém o cursor no final do texto
+            binding.editTextSenha.setSelection(binding.editTextSenha.text?.length ?: 0)
+        }
+
+        binding.ButtonVisitante.setOnClickListener {
+
+            startActivity(Intent(this@LoginActivity, MainActivity::class.java))
+            finish()
+        }
+
+
+        binding.textLinkCadastro.setOnClickListener {
+            startActivity(Intent(this@LoginActivity, CadastroActivity::class.java))
+            finish()
+        }
     }
 }
